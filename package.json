@@ -1,0 +1,39 @@
+{
+  "name": "@lourd/load-script",
+  "version": "0.0.0",
+  "description":
+    "Simple function for loading script tags in the browser asynchronously",
+  "repository": "lourd/js-load-script",
+  "author": "Louis DeScioli (http://descioli.design)",
+  "license": "MIT",
+  "main": "cjs/@lourd/load-script.js",
+  "module": "esm/@lourd/load-script.js",
+  "files": ["cjs", "esm", "umd"],
+  "scripts": {
+    "build": "node scripts/build.js",
+    "test": "jest",
+    "release": "node scripts/release.js"
+  },
+  "keywords": [
+    "utility",
+    "script",
+    "load",
+    "async",
+    "promise",
+    "browser",
+    "script tag",
+    "loader"
+  ],
+  "devDependencies": {
+    "babel-core": "^6.26.0",
+    "babel-jest": "^22.1.0",
+    "babel-plugin-transform-es2015-modules-commonjs": "^6.26.0",
+    "gzip-size": "^4.1.0",
+    "jest": "^22.1.4",
+    "pretty-bytes": "^4.0.2",
+    "readline-sync": "^1.4.7",
+    "rollup": "^0.55.1",
+    "rollup-plugin-node-resolve": "^3.0.2",
+    "rollup-plugin-uglify": "^3.0.0"
+  }
+}

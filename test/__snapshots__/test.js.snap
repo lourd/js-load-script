@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`makes a script tag for the given URL 1`] = `
+Object {
+  "async": true,
+  "onerror": [Function],
+  "onload": [Function],
+  "src": "foo.com",
+  "type": "text/javascript",
+}
+`;
