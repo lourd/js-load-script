@@ -1,14 +1,17 @@
 {
   "name": "@lourd/load-script",
-  "version": "0.0.0",
-  "description":
-    "Simple function for loading script tags in the browser asynchronously",
+  "version": "0.1.0",
+  "description": "Simple function for loading script tags in the browser asynchronously",
   "repository": "lourd/js-load-script",
   "author": "Louis DeScioli (http://descioli.design)",
   "license": "MIT",
   "main": "cjs/@lourd/load-script.js",
   "module": "esm/@lourd/load-script.js",
-  "files": ["cjs", "esm", "umd"],
+  "files": [
+    "cjs",
+    "esm",
+    "umd"
+  ],
   "scripts": {
     "build": "node scripts/build.js",
     "test": "jest",
