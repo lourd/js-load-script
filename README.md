@@ -17,7 +17,7 @@ yarn install @lourd/load-script
 
 ### In the browser
 
-[Available as a simple `<script>` through unpkg.com](https://unpkg.com/@lourd/load-script). The function will be available as the global variable `loadScript`.
+[Available as a simple `<script>` through unpkg.com](https://unpkg.com/@lourd/load-script@0.1.0/umd/@lourd/load-script.js). The function will be available as the global variable `loadScript`.
 
 ## API
 
