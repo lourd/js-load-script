@@ -12,27 +12,25 @@ const exec = (command, extraEnv) =>
     env: Object.assign({}, process.env, extraEnv),
   })
 
-const packageName = require('../package').name
+const filename = 'load-script'
 
 console.log('\nBuilding ES modules...')
 
-exec(`rollup -c -f es -o esm/${packageName}.js`)
-
-console.log('\nBuilding CommonJS modules...')
-
-exec(`rollup -c -f cjs -o cjs/${packageName}.js`)
+exec(`rollup -c -f es -o dist/${filename}.es.js`)
 
 console.log('\nBuilding UMD modules...')
 
-exec(`rollup -c -f umd -o umd/${packageName}.js`, {
+exec(`rollup -c -f umd -o dist/${filename}.js`, {
   BUILD_ENV: 'development',
 })
 
-exec(`rollup -c -f umd -o umd/${packageName}.min.js`, {
+exec(`rollup -c -f umd -o dist/${filename}.min.js`, {
   BUILD_ENV: 'production',
 })
 
+const minifiedFile = fs.readFileSync(`dist/${filename}.min.js`)
+const minifiedSize = prettyBytes(minifiedFile.byteLength)
+const gzippedSize = prettyBytes(gzipSize.sync(minifiedFile))
 console.log(
-  '\nThe minified, gzipped UMD build is %s',
-  prettyBytes(gzipSize.sync(fs.readFileSync(`umd/${packageName}.min.js`))),
+  `\nThe minified UMD build is ${minifiedSize} (${gzippedSize} gzipped)`,
 )

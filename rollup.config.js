@@ -1,7 +1,7 @@
 const resolve = require('rollup-plugin-node-resolve')
 const uglify = require('rollup-plugin-uglify')
 
-const env = process.env.BUILD_ENV
+const { BUILD_ENV } = process.env
 
 const config = {
   input: 'index.js',
@@ -11,7 +11,7 @@ const config = {
   plugins: [resolve()],
 }
 
-if (env === 'production') {
+if (BUILD_ENV === 'production') {
   config.plugins.push(uglify())
 }
 
