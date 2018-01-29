@@ -14,10 +14,6 @@ const exec = (command, extraEnv) =>
 
 const filename = 'load-script'
 
-console.log('\nBuilding ES modules...')
-
-exec(`rollup -c -f es -o dist/${filename}.es.js`)
-
 console.log('\nBuilding UMD modules...')
 
 exec(`rollup -c -f umd -o dist/${filename}.js`, {
