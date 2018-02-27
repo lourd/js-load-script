@@ -1,8 +1,7 @@
 {
   "name": "@lourd/load-script",
-  "version": "0.1.1",
-  "description":
-    "Simple function for loading script tags in the browser asynchronously",
+  "version": "0.1.2",
+  "description": "Simple function for loading script tags in the browser asynchronously",
   "repository": {
     "type": "git",
     "url": "https://github.com/lourd/js-load-script.git"
@@ -11,7 +10,9 @@
   "license": "MIT",
   "main": "dist/load-script.js",
   "module": "index.js",
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "build": "node scripts/build.js",
     "test": "jest",
