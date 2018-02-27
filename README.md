@@ -21,7 +21,7 @@ yarn install @lourd/load-script
 
 ## API
 
-### `loadScript(url: String) : Promise`
+### `loadScript(url: String) : Promise<void>`
 
 ## Support
 
