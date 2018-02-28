@@ -1,14 +1,15 @@
 {
   "name": "@lourd/load-script",
-  "version": "0.1.2",
-  "description":
-    "Simple function for loading script tags in the browser asynchronously",
+  "version": "0.1.3",
+  "description": "Simple function for loading script tags in the browser asynchronously",
   "repository": "https://github.com/lourd/js-load-script",
   "author": "Louis DeScioli (https://descioli.design)",
   "license": "MIT",
   "main": "dist/index.js",
   "module": "dist/index.es.js",
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "build": "npm-run-all clean --parallel build:*",
     "build:module": "node ./scripts/build.js",
@@ -51,6 +52,9 @@
       "^.+\\.(js|ts)$": "babel-jest"
     },
     "testRegex": "(/__tests__/.*|(\\.|/)(test))\\.(js|ts)$",
-    "moduleFileExtensions": ["js", "ts"]
+    "moduleFileExtensions": [
+      "js",
+      "ts"
+    ]
   }
 }
