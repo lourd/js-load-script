@@ -1,18 +1,22 @@
-const resolve = require('rollup-plugin-node-resolve')
-const uglify = require('rollup-plugin-uglify')
+import uglify from 'rollup-plugin-uglify'
+import babel from 'rollup-plugin-babel'
 
 const { BUILD_ENV } = process.env
 
 const config = {
-  input: 'index.js',
+  input: 'index.ts',
   output: {
     name: 'loadScript',
   },
-  plugins: [resolve()],
+  plugins: [
+    babel({
+      exclude: 'node_modules/**',
+    }),
+  ],
 }
 
 if (BUILD_ENV === 'production') {
   config.plugins.push(uglify())
 }
 
-module.exports = config
+export default config

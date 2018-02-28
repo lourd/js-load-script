@@ -1,7 +1,7 @@
-export default function loadScript(url) {
-  return new Promise((resolve, reject) => {
+export default function loadScript(url: string) {
+  return new Promise<void>((resolve, reject) => {
     const script = document.createElement('script')
-    script.onload = resolve
+    script.onload = () => resolve()
     script.onerror = reject
     script.src = url
     script.async = true

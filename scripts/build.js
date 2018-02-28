@@ -1,32 +1,62 @@
 const fs = require('fs')
 const path = require('path')
-const execSync = require('child_process').execSync
+const util = require('util')
+const execAsync = util.promisify(require('child_process').exec)
 const prettyBytes = require('pretty-bytes')
 const gzipSize = require('gzip-size')
 
-process.chdir(path.resolve(__dirname, '..'))
+const packagePath = `${process.cwd()}/package.json`
+const pkg = require(packagePath)
+
+const { name, dir } = path.parse(pkg.main)
+
+const filebase = `${dir}/${name}`
 
 const exec = (command, extraEnv) =>
-  execSync(command, {
-    stdio: 'inherit',
-    env: Object.assign({}, process.env, extraEnv),
+  execAsync(command, {
+    env: { ...process.env, ...extraEnv },
   })
 
-const filename = 'load-script'
+async function build(formats) {
+  console.log(`Building modules...`)
+  const promises = formats.map(({ format, file, description, env }) => {
+    return exec(`rollup -c -f ${format} -o ${file}`, {
+      BUILD_FORMAT: format,
+      ...env,
+    })
+  })
+  try {
+    await Promise.all(promises)
+    formats.forEach(({ file, description }, i) => {
+      const minifiedFile = fs.readFileSync(file)
+      const minifiedSize = prettyBytes(minifiedFile.byteLength)
+      const gzippedSize = prettyBytes(gzipSize.sync(minifiedFile))
+      console.log(
+        `The ${description} (${file}) is ${minifiedSize}, (${gzippedSize} gzipped)`,
+      )
+    })
+  } catch (err) {
+    console.error('🚨 build error!🚨')
+    console.error(err.message)
+    process.exit(1)
+  }
+}
 
-console.log('\nBuilding UMD modules...')
+const formats = [
+  { format: 'es', file: `${filebase}.es.js`, description: 'ES module' },
+  {
+    format: 'umd',
+    file: `${filebase}.js`,
+    description: 'UMD module',
+  },
+  {
+    format: 'umd',
+    file: `${filebase}.min.js`,
+    description: 'minified UMD module',
+    env: {
+      BUILD_ENV: 'production',
+    },
+  },
+]
 
-exec(`rollup -c -f umd -o dist/${filename}.js`, {
-  BUILD_ENV: 'development',
-})
-
-exec(`rollup -c -f umd -o dist/${filename}.min.js`, {
-  BUILD_ENV: 'production',
-})
-
-const minifiedFile = fs.readFileSync(`dist/${filename}.min.js`)
-const minifiedSize = prettyBytes(minifiedFile.byteLength)
-const gzippedSize = prettyBytes(gzipSize.sync(minifiedFile))
-console.log(
-  `\nThe minified UMD build is ${minifiedSize} (${gzippedSize} gzipped)`,
-)
+build(formats)

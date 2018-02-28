@@ -1,22 +1,23 @@
 {
   "name": "@lourd/load-script",
   "version": "0.1.2",
-  "description": "Simple function for loading script tags in the browser asynchronously",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/lourd/js-load-script.git"
-  },
+  "description":
+    "Simple function for loading script tags in the browser asynchronously",
+  "repository": "https://github.com/lourd/js-load-script",
   "author": "Louis DeScioli (https://descioli.design)",
   "license": "MIT",
-  "main": "dist/load-script.js",
-  "module": "index.js",
-  "files": [
-    "dist"
-  ],
+  "main": "dist/index.js",
+  "module": "dist/index.es.js",
+  "files": ["dist"],
   "scripts": {
-    "build": "node scripts/build.js",
-    "test": "jest",
-    "release": "node scripts/release.js"
+    "build": "npm-run-all clean --parallel build:*",
+    "build:module": "node ./scripts/build.js",
+    "build:types": "tsc -p tsconfig.types.json",
+    "clean": "rimraf dist",
+    "test": "npm-run-all --parallel test:*",
+    "test:logic": "jest",
+    "test:types": "tsc",
+    "develop": "npm-run-all --parallel \"test:* --watch\""
   },
   "keywords": [
     "utility",
@@ -29,15 +30,27 @@
     "loader"
   ],
   "devDependencies": {
-    "babel-core": "^6.26.0",
-    "babel-jest": "^22.1.0",
-    "babel-plugin-transform-es2015-modules-commonjs": "^6.26.0",
+    "@babel/core": "^7.0.0-beta.40",
+    "@babel/plugin-transform-modules-commonjs": "^7.0.0-beta.40",
+    "@babel/preset-typescript": "^7.0.0-beta.40",
+    "@types/jest": "^22.1.3",
+    "babel-core": "^7.0.0-bridge.0",
+    "babel-jest": "^22.4.1",
     "gzip-size": "^4.1.0",
     "jest": "^22.1.4",
+    "npm-run-all": "^4.1.2",
     "pretty-bytes": "^4.0.2",
-    "readline-sync": "^1.4.7",
+    "rimraf": "^2.6.2",
     "rollup": "^0.55.1",
-    "rollup-plugin-node-resolve": "^3.0.2",
-    "rollup-plugin-uglify": "^3.0.0"
+    "rollup-plugin-babel": "^4.0.0-beta.0",
+    "rollup-plugin-uglify": "^3.0.0",
+    "typescript": "^2.7.2"
+  },
+  "jest": {
+    "transform": {
+      "^.+\\.(js|ts)$": "babel-jest"
+    },
+    "testRegex": "(/__tests__/.*|(\\.|/)(test))\\.(js|ts)$",
+    "moduleFileExtensions": ["js", "ts"]
   }
 }
