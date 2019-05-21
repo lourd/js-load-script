@@ -2,6 +2,7 @@
   "compilerOptions": {
     "target": "es2015",
     "noEmit": true,
-    "pretty": true
+    "pretty": true,
+    "moduleResolution": "node"
   },
 }

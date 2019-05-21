@@ -1,7 +1,7 @@
-import uglify from 'rollup-plugin-uglify'
-import babel from 'rollup-plugin-babel'
+import { terser } from 'rollup-plugin-terser';
+import babel from 'rollup-plugin-babel';
 
-const { BUILD_ENV } = process.env
+const { BUILD_ENV } = process.env;
 
 const config = {
   input: 'index.ts',
@@ -10,13 +10,14 @@ const config = {
   },
   plugins: [
     babel({
+      extensions: ['.ts'],
       exclude: 'node_modules/**',
     }),
   ],
-}
+};
 
 if (BUILD_ENV === 'production') {
-  config.plugins.push(uglify())
+  config.plugins.push(terser());
 }
 
-export default config
+export default config;
