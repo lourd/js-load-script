@@ -1,4 +1,4 @@
-import loadScript from '../index'
+import loadScript from '../index';
 
 it('makes a script tag for the given URL', async () => {
   const fakeScriptEl = {
@@ -12,19 +12,19 @@ it('makes a script tag for the given URL', async () => {
   const appendSpy = jest
     .spyOn(document.head, 'appendChild')
     .mockImplementation(() => fakeNode);
-  const url = 'foo.com'
-  const loadPromise = loadScript(url)
+  const url = 'foo.com';
+  const loadPromise = loadScript(url);
 
-  expect(document.createElement).toHaveBeenCalledWith('script')
-  expect(document.head.appendChild).toHaveBeenCalledWith(fakeScriptEl)
-  expect(fakeScriptEl).toMatchSnapshot()
+  expect(document.createElement).toHaveBeenCalledWith('script');
+  expect(document.head.appendChild).toHaveBeenCalledWith(fakeScriptEl);
+  expect(fakeScriptEl).toMatchSnapshot();
 
   fakeScriptEl.onload(new Event('foo'));
-  const res = await loadPromise
-  expect(res).toEqual(undefined)
-  createSpy.mockRestore()
-  appendSpy.mockRestore()
-})
+  const res = await loadPromise;
+  expect(res).toEqual(undefined);
+  createSpy.mockRestore();
+  appendSpy.mockRestore();
+});
 
 it('rejects the returned promise with whatever argument onerror is called with', async () => {
   const fakeScriptEl = {
@@ -38,12 +38,12 @@ it('rejects the returned promise with whatever argument onerror is called with',
   const appendSpy = jest
     .spyOn(document.head, 'appendChild')
     .mockImplementation(() => fakeNode);
-  const url = 'foo.com'
-  const loadPromise = loadScript(url)
+  const url = 'foo.com';
+  const loadPromise = loadScript(url);
 
   const err = 'failure';
-  fakeScriptEl.onerror(err)
-  await expect(loadPromise).rejects.toEqual(err)
-  createSpy.mockRestore()
-  appendSpy.mockRestore()
-})
+  fakeScriptEl.onerror(err);
+  await expect(loadPromise).rejects.toEqual(err);
+  createSpy.mockRestore();
+  appendSpy.mockRestore();
+});
