@@ -1,6 +1,6 @@
 {
   "name": "@lourd/load-script",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "description": "Simple function for loading script tags in the browser asynchronously",
   "repository": "https://github.com/lourd/js-load-script",
   "author": "Louis DeScioli (https://descioli.design)",
